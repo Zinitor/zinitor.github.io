@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var myMap = new ymaps.Map(
         "map",
         {
-          center: [56.319962084999545,43.966574413001695],
+          center: [56.319962084999545, 43.966574413001695],
           zoom: 12,
         },
         {
@@ -21,16 +21,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function createMenuGroup(group) {
       // Пункт меню.
-      var menuItem = $('<li><a href="#" class="on">' + '<i class="' + group.icon +'">' + "</a></li>"),
+      var menuItem = $(
+          '<li><a href="#" class="on">' +
+            '<i class="' +
+            group.icon +
+            '">' +
+            "</a></li>"
+        ),
         // Коллекция для геообъектов группы.
         collection = new ymaps.GeoObjectCollection(null, {
           preset: group.style,
           iconGlyph: group.iconGlyph,
-          iconGlyphColor: group.iconGlyphColor
+          iconGlyphColor: group.iconGlyphColor,
         }),
         // Контейнер для подменю.
         submenu = $('<ul class="nav-links"></ul>');
-        submenu.hide();
+      submenu.hide();
       // Добавляем коллекцию на карту.
       myMap.geoObjects.add(collection);
       // Добавляем подменю.
@@ -41,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // По клику удаляем/добавляем коллекцию на карту и скрываем/отображаем подменю.
         .find("a")
         .bind("click", function () {
-          $(this).toggleClass('on off');
+          $(this).toggleClass("on off");
           if (collection.getParent()) {
             myMap.geoObjects.remove(collection);
           } else {
@@ -62,7 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       placemark.events.add("click", function () {
         document.getElementById("info-button").href =
-          "info.html?group=" + encodeURIComponent(group.name) + "&item=" + encodeURIComponent(item.id);
+          "info.html?group=" +
+          encodeURIComponent(group.name) +
+          "&item=" +
+          encodeURIComponent(item.id);
       });
 
       // Добавляем метку в коллекцию.
@@ -87,28 +96,32 @@ document.addEventListener("DOMContentLoaded", function () {
     // Выставляем масштаб карты чтобы были видны все группы.
     myMap.setBounds(myMap.geoObjects.getBounds());
 
-      //Нахождение юрл параметра
-  var urlParams = new URLSearchParams(window.location.search);
-  var landmarkName = urlParams.get('landmark');
+    //Нахождение юрл параметра
+    var urlParams = new URLSearchParams(window.location.search);
+    var groupName = urlParams.get("group");
+    var itemid = urlParams.get("item");
+    console.log(groupName + itemid);
 
-  // Проверка если место вписано в url
-  if (landmarkName) {
-    // Проход по всем группам
-    for (var i = 0, l = groups.length; i < l; i++) {
-      for (var j = 0, m = groups[i].items.length; j < m; j++) {
-        var item = groups[i].items[j];
-        if (item.name === landmarkName) {
-          // Отцентрировать
-          myMap.setCenter(item.center, 16);
-          var placemark = item;
-          break;
-        }
-      }
-      if (placemark) {
-        break;
+    // Проверка если место вписано в url
+    if (groupName) {
+      // Проход по всем группам
+      for (var i = 0, l = groups.length; i < l; i++) {
+        if (groups[i].name === groupName){ //Если название группы совпадает
+          {
+            for (var j = 0, m = groups[i].items.length; j < m; j++) {
+              if (groups[i].items[j].id === itemid) { //Если id памятника присутствует
+                // Отцентрировать
+                myMap.setCenter(groups[i].items[j].center, 16);
+                var placemark = groups[i].items[j];
+                break;
+              }
+            }
+            if (placemark) {
+              break;
+            }
+          }
       }
     }
-  }
+    }
   }
 });
-

@@ -1,10 +1,10 @@
-function goBackToMapButtonUrl() {
-  // Parse the landmark name from the URL parameter
-  const params = new URLSearchParams(window.location.search);
-  const landmarkName = params.get("landmark");
-  document.getElementById("map-button").href =
-  "index.html?landmark=" + encodeURIComponent(landmarkName);
-}
+// function goBackToMapButtonUrl() {
+//   // Parse the landmark name from the URL parameter
+//   const params = new URLSearchParams(window.location.search);
+//   const landmarkName = params.get("landmark");
+//   document.getElementById("map-button").href =
+//   "index.html?landmark=" + encodeURIComponent(landmarkName);
+// }
 
 //wait for page to load
 document.addEventListener("DOMContentLoaded", function () {
@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var filePath = './/' +'groups/' + groupName + '/' + itemid + '.json';
   $.getJSON(filePath)
     .done(function(data) {
-        console.log(data.name);
         if (landmarkElement) {
             landmarkElement.innerHTML = data.name;
           } else {
@@ -45,3 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   goBackToMapButtonUrl();
 });
+
+function goBackToMapButtonUrl() {
+  // Parse the landmark name from the URL parameter
+  const params = new URLSearchParams(window.location.search);
+  const groupName = params.get("group");
+  const itemid = params.get("item");
+  document.getElementById("map-button").href =
+          "index.html?group=" + encodeURIComponent(groupName) + 
+          "&item=" + encodeURIComponent(itemid);
+}
