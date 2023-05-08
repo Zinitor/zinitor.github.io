@@ -1,70 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Info Page</title>
-  <script
-  src="https://yastatic.net/jquery/3.3.1/jquery.js"
-  type="text/javascript"
-></script>
-  <script
-      src="scripts/parseLandmarks.js"
-      type="text/javascript"
-    ></script>
-    <script
-      src="https://kit.fontawesome.com/e9cb487529.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="scripts/groups.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="styles/style.css" />
+  <script src="https://yastatic.net/jquery/3.3.1/jquery.js" type="text/javascript"></script>
+  <script src="scripts/parseLandmarks.js" type="text/javascript"></script>
+  <script src="https://kit.fontawesome.com/e9cb487529.js" crossorigin="anonymous"></script>
+  <script src="scripts/groups.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="styles/style.css" />
 </head>
+
 <body>
-    <a href="index.html" onclick="goBackToMap" id="map-button"> 
-        <div class="mapbutton">
-          <i class="fa-solid fa-magnifying-glass"></i>
+  <a href="index.html" onclick="goBackToMap" id="map-button">
+    <div class="mapbutton">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+  </a>
+  <div class="text header-text">
+    <span class="name">CultMap</span>
+    <span class="profession">Web Developer</span>
+  </div>
+  </div>
+  <nav class="sidebar">
+    <header>
+      <div class="image-text">
+        <span class="image">
+          <img src="/images/logo.png" alt="logo" />
+        </span>
+
+        <div class="text header-text">
+          <span class="name">CultMap</span>
+          <span class="profession">Web Developer</span>
         </div>
-      </a>
-      <div class="text header-text">
-        <span class="name">CultMap</span>
-        <span class="profession">Web Developer</span>
+      </div>
+      <i class="fa-solid fa-chevron-right toggle"> </i>
+      <!--  Вставить сюда свои иконки -->
+    </header>
+
+    <div class="menu-bar">
+      <div class="menu">
+        <i class="fa-solid fa-house"></i>
+        <span class="text nav-text">Dashboard</span>
+        <ul class="menu-links">
+          <li class="nav-links">
+            <a href="#">
+              <i class="fa-solid fa-house"></i>
+              <span class="text nav-text">Dashboard</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
-    <nav class="sidebar">
-        <header>
-          <div class="image-text">
-            <span class="image">
-              <img src="/images/logo.png" alt="logo" />
-            </span>
-  
-            <div class="text header-text">
-              <span class="name">CultMap</span>
-              <span class="profession">Web Developer</span>
-            </div>
-          </div>
-          <i class="fa-solid fa-chevron-right toggle"> </i>
-          <!--  Вставить сюда свои иконки -->
-        </header>
-  
-        <div class="menu-bar">
-          <div class="menu">
-            <i class="fa-solid fa-house"></i>
-            <span class="text nav-text">Dashboard</span>
-            <ul class="menu-links">
-              <li class="nav-links">
-                <a href="#">
-                  <i class="fa-solid fa-house"></i>
-                  <span class="text nav-text">Dashboard</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <h3><p id="landmark-title"> Info Page</h3></p>
-  <p id="landmark-description">
-    
-  </p>
+  </nav>
+  <div class="maincontent">
+    <div class="title">
+      <h1>
+        <p id="landmark-title"> Info Page </p>
+      </h1>
+    </div>
+    <div class="description">
+      <p id="landmark-description">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis iure voluptate ratione repellat, consectetur
+        omnis harum itaque pariatur fuga suscipit ullam, doloribus tenetur quidem. Rerum, ex sunt. Ratione, asperiores
+        animi.
+      </p>
+    </div>
+    <div class="desc-image">
+      <img src="/images/logo.png" alt="logo" />
+    </div>
+  </div>
 
-  
+  <br>
+
+
 </body>
+
 </html>
