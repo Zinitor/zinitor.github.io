@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var filePath = './/' +'groups/' + groupName + '/' + itemid + '.json';
   $.getJSON(filePath)
     .done(function(data) {
-        var itemName = data.name;
+        // var itemName = data.name;
         console.log(data.name);
         // Use the itemName variable as needed
     })
