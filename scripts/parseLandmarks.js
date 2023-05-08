@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $.getJSON(filePath)
     .done(function(data) {
         var itemName = data.name;
+        console.log(data.name);
         // Use the itemName variable as needed
     })
     .fail(function(jqxhr, textStatus, error) {
@@ -34,12 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var landmarkElement = document.getElementById("landmark-title");
 
-  var descriptionElement = document.getElementById("landmark-description");
-  if (landmarkElement) {
-    landmarkElement.innerHTML = data.name;
-  } else {
-    console.log("The element does not exist.");
-  }
+  // var descriptionElement = document.getElementById("landmark-description");
+  // if (landmarkElement) {
+  //   landmarkElement.innerHTML = data.name;
+  // } else {
+  //   console.log("The element does not exist.");
+  // }
  
 
   goBackToMapButtonUrl();
