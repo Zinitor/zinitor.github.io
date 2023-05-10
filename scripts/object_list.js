@@ -23,9 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Пункт меню.
       var menuItem = $(
           '<li><a href="#" class="on">' +
-            '<i class="' +
-            group.icon +
-            '">' +
+            '<i class="' + group.icon +'">' +
             "</a></li>"
         ),
         // Коллекция для геообъектов группы.
@@ -100,16 +98,23 @@ document.addEventListener("DOMContentLoaded", function () {
     var urlParams = new URLSearchParams(window.location.search);
     var groupName = urlParams.get("group");
     var itemid = urlParams.get("item");
-    console.log(groupName + itemid);
+    //Присвоение адреса снова к кнопке когда пользователь вернулся со страницы информации
+    document.getElementById("info-button").href =
+      "info.html?group=" +
+      encodeURIComponent(groupName) +
+      "&item=" +
+      encodeURIComponent(itemid);
 
     // Проверка если место вписано в url
     if (groupName) {
       // Проход по всем группам
       for (var i = 0, l = groups.length; i < l; i++) {
-        if (groups[i].name === groupName){ //Если название группы совпадает
+        if (groups[i].name === groupName) {
+          //Если название группы совпадает
           {
             for (var j = 0, m = groups[i].items.length; j < m; j++) {
-              if (groups[i].items[j].id === itemid) { //Если id памятника присутствует
+              if (groups[i].items[j].id === itemid) {
+                //Если id памятника присутствует
                 // Отцентрировать
                 myMap.setCenter(groups[i].items[j].center, 16);
                 var placemark = groups[i].items[j];
@@ -120,8 +125,8 @@ document.addEventListener("DOMContentLoaded", function () {
               break;
             }
           }
+        }
       }
-    }
     }
   }
 });
