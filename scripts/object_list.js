@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Пункт меню.
       var menuItem = $(
           '<li><a href="#" class="on">' +
-            '<i class="' + group.icon +'">' +
+            '<i class="' +
+            group.icon +
+            '">' +
             "</a></li>"
         ),
         // Коллекция для геообъектов группы.
@@ -86,7 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
             placemark.balloon.close();
           }
           return false;
-        });
+        })
+        // .appendTo($('.dir-list'));//Добавление в справочник
     }
 
     // Добавляем меню в тэг menu.
@@ -130,3 +133,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+
+// $(document).on("click", "a#dir", function (e) {
+//   if ($(".dirmenu").css("display") == "none") {
+//     $(".dirmenu").css("display", "block");
+//     $('#info-button').css("display", 'none');
+//     $('#map').css("display", 'none');
+//   } else {
+//     $(".dirmenu").css("display", "none");
+//     $('#info-button').css("display", 'block');
+//     $('#map').css("display", 'block');
+//   }
+//   // showitems();
+// });
