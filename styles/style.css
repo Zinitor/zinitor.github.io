@@ -39,7 +39,7 @@
 }
 #info-button,
 #map-button {
-  color: inherit;
+  color: var(--text-color);
   text-decoration: none;
   transition: color 0.3s;
 }
@@ -74,7 +74,7 @@
   font-size: 90%;
 }
 
-.dirmenu{
+.dirmenu {
   width: 1920px;
   height: 100%;
   margin-left: 250px;
@@ -88,7 +88,7 @@
   /* Colors */
   --body-color: #e4e9f7;
   --sidebar-color: #fff;
-  --primary-color: #695fce;
+  --primary-color: #15a25c;
   --primary-color-light: #f6f5ff;
   --toggle-color: #ddd;
   --text-color: #707070;
@@ -194,22 +194,23 @@ header.image-text .header-text {
   transition: color 1s;
 }
 /* css для info.html */
-.infomaincontent{
+.infomaincontent {
   margin-left: 250px;
 }
-.infotitle{
+.infotitle {
   margin-left: 30px;
 }
-.infodate, .infoauthor {
+.infodate,
+.infoauthor {
   margin-top: 1rem;
   margin-left: 10px;
 }
-.infodescription{
+.infodescription {
   margin-bottom: 10px;
   text-indent: 10px;
   margin-left: 4px;
 }
-.infomaincontent img{
+.infomaincontent img {
   width: 20vw;
   float: left;
   margin: 3px;
@@ -217,14 +218,39 @@ header.image-text .header-text {
   border-radius: 30px;
   background: none;
 }
-.infofooter{
+.infofooter {
   color: var(--text-color);
   height: 180px;
-  margin-left: 200px;
   padding-top: 10px;
   padding-left: 220px;
-  background-color: #001514;
+  background-color: #28282a;
+  display: flex;
+  position: relative;
+  bottom: -10px;
+  left: 0;
+  right: 0;
 }
-
-
-
+.infofooter li {
+  list-style: none;
+  padding: 3px;
+}
+.infofooter li a {
+  color: #bd6b73;
+}
+.infofooter i {
+  font-size: 20px;
+}
+.infofooter .footer-linktext {
+  color: var(--body-color);
+  font-size: 16px;
+}
+.infofooter ul {
+  width: 24vw;
+}
+.footerlist1 {
+  padding-left: 20px;
+}
+.footerlist2 {
+  padding-left: 40px;
+  padding-right: 40px;
+}

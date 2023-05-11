@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var landmarkDate = document.getElementById("landmark-date");
   var landmarkDescription = document.getElementById("landmark-description");
   var landmarkImage = document.getElementById("landmark-image");
-  
+
   var filePath = ".//" + "groups/" + groupName + "/" + itemid + ".json";
   $.getJSON(filePath)
     .done(function (data) {
@@ -58,9 +58,8 @@ function goBackToMapButtonUrl() {
     encodeURIComponent(itemid);
 }
 
-
-window.onscroll = function(ev) {
-  if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
-    $('#map-button').css('color', 'var(--primary-color)');
-  }};
-
+$(window).scroll(function () {
+  if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+    $("#map-button").css("color", "var(--primary-color)");
+  } else $("#map-button").css("color", "var(--text-color)");
+});

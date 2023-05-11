@@ -66,13 +66,20 @@ document.addEventListener("DOMContentLoaded", function () {
         placemark = new ymaps.Placemark(item.center, {
           balloonContent: item.name,
         });
-      placemark.events.add("click", function () {
-        document.getElementById("info-button").href =
-          "info.html?group=" +
-          encodeURIComponent(group.name) +
-          "&item=" +
-          encodeURIComponent(item.id);
-      });
+      placemark.events
+        .add("click", function () {
+          document.getElementById("info-button").href =
+            "info.html?group=" +
+            encodeURIComponent(group.name) +
+            "&item=" +
+            encodeURIComponent(item.id);
+        })
+        .add("balloonopen", function () {
+          $("#info-button").css("color", "var(--primary-color)");
+        })
+        .add("balloonclose", function () {
+          $("#info-button").css("color", "var(--text-color)");
+        });
 
       // Добавляем метку в коллекцию.
       collection.add(placemark);
@@ -88,8 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
             placemark.balloon.close();
           }
           return false;
-        })
-        // .appendTo($('.dir-list'));//Добавление в справочник
+        });
+      // .appendTo($('.dir-list'));//Добавление в справочник
     }
 
     // Добавляем меню в тэг menu.
@@ -112,11 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (groupName) {
       // Проход по всем группам
       for (var i = 0, l = groups.length; i < l; i++) {
-        if (groups[i].name === groupName) {
+        if (groups[i].name == groupName) {
           //Если название группы совпадает
           {
             for (var j = 0, m = groups[i].items.length; j < m; j++) {
-              if (groups[i].items[j].id === itemid) {
+              if (groups[i].items[j].id == itemid) {
                 //Если id памятника присутствует
                 // Отцентрировать
                 myMap.setCenter(groups[i].items[j].center, 16);
