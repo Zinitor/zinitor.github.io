@@ -208,7 +208,8 @@ header.image-text .header-text {
 .infodescription {
   margin-bottom: 10px;
   text-indent: 10px;
-  margin-left: 4px;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 .infomaincontent img {
   width: 20vw;
