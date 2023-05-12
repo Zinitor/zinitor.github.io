@@ -210,11 +210,13 @@ header.image-text .header-text {
   text-indent: 10px;
   margin-left: 1em;
   margin-right: 1em;
+  min-height: 70vh;
 }
 .infomaincontent img {
-  width: 20vw;
+  width: 25vw;
   float: left;
   margin: 3px;
+  margin-right: 10px;
   border: 6px solid #ffffff;
   border-radius: 30px;
   background: none;
