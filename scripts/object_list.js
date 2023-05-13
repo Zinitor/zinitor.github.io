@@ -1,5 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
   ymaps.ready(init);
+  $(document).on("click", "a#dir", function (e) {
+    if ($(".dirmenu").css("display") == "none") {
+      $(".dirmenu").css("display", "block");
+      $("#info-button").css("display", "none");
+      // $('#map').css("display", 'none');
+    } else {
+      $(".dirmenu").css("display", "none");
+      $("#info-button").css("display", "block");
+      // $('#map').css("display", 'block');
+    }
+    // showitems();
+  });
   function init() {
     // Создание экземпляра карты.
     var myMap = new ymaps.Map(
@@ -61,7 +73,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function createSubMenu(item, collection, submenu, group) {
       // Пункт подменю.
-      var submenuItem = $('<li><a href="#">' + item.name + "</a></li>"),
+      // var submenuItem = $('<li><a href="#">' + item.name + "</a></li>"),
+      var submenuItem = $(
+          "<a href=#>" +
+            // '"index.html?group=' +
+            // group.name +
+            // "&item=" +
+            // item.id +
+            // '">' +
+            "<li>" +
+            item.name +
+            "</li>" +
+            " </a> "
+        ), //ссылка на объект
+        // var submenuItem = $('<li>' + item.name +'</li>').attr("href", "index.html?group=" + group.name + "&item=" + item.id);
         // Создаем метку.
         placemark = new ymaps.Placemark(item.center, {
           balloonContent: item.name,
@@ -85,18 +110,29 @@ document.addEventListener("DOMContentLoaded", function () {
       collection.add(placemark);
       // Добавляем пункт в подменю.
       submenuItem
-        .appendTo(submenu)
-        // При клике по пункту подменю открываем/закрываем баллун у метки.
+        .appendTo(".dir-list", submenu)
+        // При клике по пункту подменю закрываем справочник и центрируемся на объекте
         .find("a")
         .bind("click", function () {
           if (!placemark.balloon.isOpen()) {
-            placemark.balloon.open();
+            // $('#map').css("display", 'block');
+            // placemark.balloon.open();
           } else {
-            placemark.balloon.close();
+            // placemark.balloon.close();
           }
           return false;
         });
-      // .appendTo($('.dir-list'));//Добавление в справочник
+        submenuItem.bind("click",function () {
+          $(".dirmenu").css("display", "none");
+          $("#info-button").css("display", "block");
+          myMap.setCenter(placemark.geometry.getCoordinates(), 16);
+          document.getElementById("info-button").href =
+          "info.html?group=" +
+          encodeURIComponent(group.name) +
+          "&item=" +
+          encodeURIComponent(item.id);
+          placemark.balloon.open();
+        })
     }
 
     // Добавляем меню в тэг menu.
@@ -140,16 +176,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
-
-// $(document).on("click", "a#dir", function (e) {
-//   if ($(".dirmenu").css("display") == "none") {
-//     $(".dirmenu").css("display", "block");
-//     $('#info-button').css("display", 'none');
-//     $('#map').css("display", 'none');
-//   } else {
-//     $(".dirmenu").css("display", "none");
-//     $('#info-button').css("display", 'block');
-//     $('#map').css("display", 'block');
-//   }
-//   // showitems();
-// });

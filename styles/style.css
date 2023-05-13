@@ -83,6 +83,9 @@
   background-color: var(--body-color);
   position: fixed;
 }
+.dirmenu li{
+  list-style: none;
+}
 
 :root {
   /* Colors */
