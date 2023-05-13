@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ymaps.ready(init);
   $(document).on("click", "a#dir", function (e) {
     if ($(".dirmenu").css("display") == "none") {
-      $(".dirmenu").css("display", "block");
+      $(".dirmenu").css("display", "grid");
       $("#info-button").css("display", "none");
       // $('#map').css("display", 'none');
     } else {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var myMap = new ymaps.Map(
         "map",
         {
-          center: [56.319962084999545, 43.966574413001695],
+          center: [56.3199620, 43.966574],
           zoom: 12,
         },
         {
@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Контейнер для подменю.
         submenu = $('<ul class="nav-links"></ul>');
       submenu.hide();
+      linksubmenu = $('<ul class="'+group.name+'">'+'<h2>'+group.name+'</h2>'+'</ul>');
+      linksubmenu.appendTo($('.dirmenu'))
       // Добавляем коллекцию на карту.
       myMap.geoObjects.add(collection);
       // Добавляем подменю.
@@ -110,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
       collection.add(placemark);
       // Добавляем пункт в подменю.
       submenuItem
-        .appendTo(".dir-list", submenu)
+        .appendTo(linksubmenu, submenu)
         // При клике по пункту подменю закрываем справочник и центрируемся на объекте
         .find("a")
         .bind("click", function () {
@@ -122,16 +124,17 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           return false;
         });
+        //При клике на объекте в перечени
         submenuItem.bind("click",function () {
-          $(".dirmenu").css("display", "none");
+          $(".dirmenu").css("display", "none");//закрыть перечень
           $("#info-button").css("display", "block");
-          myMap.setCenter(placemark.geometry.getCoordinates(), 16);
+          myMap.setCenter(placemark.geometry.getCoordinates(), 16);//отцентрировать карту на объекте
           document.getElementById("info-button").href =
           "info.html?group=" +
           encodeURIComponent(group.name) +
           "&item=" +
-          encodeURIComponent(item.id);
-          placemark.balloon.open();
+          encodeURIComponent(item.id);//Добавить ссылку на объект к кнопке справки
+          placemark.balloon.open();//Открыть баллун
         })
     }
 
@@ -140,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Выставляем масштаб карты чтобы были видны все группы.
     myMap.setBounds(myMap.geoObjects.getBounds());
 
-    //Нахождение юрл параметра
+    //Нахождение юрл параметра 
     var urlParams = new URLSearchParams(window.location.search);
     var groupName = urlParams.get("group");
     var itemid = urlParams.get("item");
