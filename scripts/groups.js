@@ -1,7 +1,8 @@
 // Группы объектов
 var groups = [
   {
-    name: "Monuments",
+    name: "Памятники",
+    groupid: "0",
     style: "islands#redGlyphIcon",
     icon: "fa-solid fa-monument", //Иконка для фильтра
     items: [
@@ -43,7 +44,8 @@ var groups = [
     ],
   },
   {
-    name: "Churches",
+    name: "Церкви, храмы, соборы",
+    groupid: "1",
     style: "islands#yellowGlyphIcon",
     icon: "fa-solid fa-cross",
     items: [
@@ -90,7 +92,8 @@ var groups = [
     ],
   },
   {
-    name: "ArchLandmarks",
+    name: "Архитектурные достопримечательности",
+    groupid: "2",
     style: "islands#blueGlyphIcon",
     icon: "fa-solid fa-landmark",
     items: [
@@ -142,7 +145,8 @@ var groups = [
     ],
   },
   {
-    name: "Graffiti",
+    name: "Граффити",
+    groupid: "3",
     style: "islands#greenGlyphIcon",
     icon: "fa-solid fa-spray-can",
     items: [

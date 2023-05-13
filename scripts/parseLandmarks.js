@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Display the landmark name on the page
 
-  var groupName = urlParams.get("group");
+  var groupid = urlParams.get("groupid");
   var itemid = urlParams.get("item");
   var landmarkElement = document.getElementById("landmark-title");
   var landmarkAuthor = document.getElementById("landmark-author");
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var landmarkDescription = document.getElementById("landmark-description");
   var landmarkImage = document.getElementById("landmark-image");
 
-  var filePath = ".//" + "groups/" + groupName + "/" + itemid + ".json";
+  var filePath = ".//" + "groups/" + groupid + "/" + itemid + ".json";
   $.getJSON(filePath)
     .done(function (data) {
       if (landmarkElement) {
@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
 function goBackToMapButtonUrl() {
   // Parse the landmark name from the URL parameter
   const params = new URLSearchParams(window.location.search);
-  const groupName = params.get("group");
+  const groupid = params.get("groupid");
   const itemid = params.get("item");
   document.getElementById("map-button").href =
-    "index.html?group=" +
-    encodeURIComponent(groupName) +
+    "index.html?groupid=" +
+    encodeURIComponent(groupid) +
     "&item=" +
     encodeURIComponent(itemid);
 }
