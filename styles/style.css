@@ -97,7 +97,8 @@
   --sidebar-color: #fff;
   --primary-color: #15a25c;
   --primary-color-light: #f6f5ff;
-  --toggle-color: #ddd;
+  --accent-color: #15a25c;
+  --toggle-color: #babcc9;
   --text-color: #707070;
 
   /* Transition */
@@ -192,12 +193,12 @@ header.image-text .header-text {
   padding: 14px;
 }
 .sidebar .menu-filters a.on {
-  color: #15a25c;
+  color: var(--accent-color);
   transition: color 1s;
 }
 
 .sidebar .menu-filters .off {
-  color: #babcc9;
+  color: var(--toggle-color);
   transition: color 1s;
 }
 /* css для info.html */

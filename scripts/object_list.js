@@ -163,8 +163,8 @@ document.addEventListener("DOMContentLoaded", function () {
       encodeURIComponent(itemid);
 
     // Проверка если место вписано в url
-    itemid = itemid.slice(4);
     if (groupid) {
+      itemid = itemid.slice(4);
       myMap.setCenter(groups[groupid].items[itemid - 1].center, 16);
     }
     //   // Проход по всем группам
