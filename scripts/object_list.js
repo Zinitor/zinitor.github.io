@@ -110,10 +110,10 @@ document.addEventListener("DOMContentLoaded", function () {
             encodeURIComponent(item.id);
         })
         .add("balloonopen", function () {
-          $("#info-button").css("color", "var(--primary-color)");
+          $("#info-button").css("color", "var(--accent-color)");
         })
         .add("balloonclose", function () {
-          $("#info-button").css("color", "var(--text-color)");
+          $("#info-button").css("color", "var(--toggle-color)");
         });
 
       // Добавляем метку в коллекцию.
@@ -189,4 +189,10 @@ document.addEventListener("DOMContentLoaded", function () {
     //   }
     // }
   }
+  const toggleThemeBtn = document.querySelector('#themechangebtn');
+  toggleThemeBtn.addEventListener('click', function(){
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme ==='dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme',newTheme);
+  })
 });

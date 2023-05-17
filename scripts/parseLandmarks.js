@@ -2,7 +2,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Get the query string parameters from the URL
   const queryString = window.location.search;
-
+  const toggleThemeBtn = document.querySelector('#themechangebtn');
+  toggleThemeBtn.addEventListener('click', function(){
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme ==='dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme',newTheme);
+  })
   // Create a new URLSearchParams object and pass the query string as a parameter
   const urlParams = new URLSearchParams(queryString);
 
@@ -60,6 +65,6 @@ function goBackToMapButtonUrl() {
 
 $(window).scroll(function () {
   if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-    $("#map-button").css("color", "var(--primary-color)");
-  } else $("#map-button").css("color", "var(--text-color)");
+    $("#map-button").css("color", "var(--accent-color)");
+  } else $("#map-button").css("color", "var(--toggle-color)");
 });
