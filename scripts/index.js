@@ -4,13 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if ($(".dirmenu").css("display") == "none") {
       $(".dirmenu").css("display", "grid");
       $("#info-button").css("display", "none");
-      // $('#map').css("display", 'none');
     } else {
       $(".dirmenu").css("display", "none");
       $("#info-button").css("display", "block");
-      // $('#map').css("display", 'block');
     }
-    // showitems();
   });
   function init() {
     // Создание экземпляра карты.
@@ -32,6 +29,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function createMenuGroup(group) {
+      group.items.sort(function (a, b) {
+        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+          return -1;
+        }
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
       // Пункт меню.
       var menuItem = $(
           '<li><a href="#" class="on">' +
@@ -167,32 +173,34 @@ document.addEventListener("DOMContentLoaded", function () {
       itemid = itemid.slice(4);
       myMap.setCenter(groups[groupid].items[itemid - 1].center, 16);
     }
-    //   // Проход по всем группам
-    //   for (var i = 0, l = groups.length; i < l; i++) {
-    //     if (groups[i].name == groupName) {
-    //       //Если название группы совпадает
-    //       {
-    //         for (var j = 0, m = groups[i].items.length; j < m; j++) {
-    //           if (groups[groupid].items[j].id == itemid) {
-    //             //Если id памятника присутствует
-    //             // Отцентрировать
-    //             myMap.setCenter(groups[i].items[j].center, 16);
-    //             var placemark = groups[i].items[j];
-    //             break;
-    //           }
-    //         }
-    //         if (placemark) {
-    //           break;
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   }
-  const toggleThemeBtn = document.querySelector('#themechangebtn');
-  toggleThemeBtn.addEventListener('click', function(){
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme ==='dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme',newTheme);
-  })
+  const toggleThemeBtn = document.querySelector("#themechangebtn");
+  toggleThemeBtn.addEventListener("click", function () {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+  });
+  // console.log($(".dirmenu > ul"));
+  // jQuery(document).ready(function ($) {
+  //   $(".dirmenu + ul").each(function () {
+  //     $(this).attr("data-search-term", $(this).text().toLowerCase());
+  //   });
+
+
+  //   $(".live-search-box").on("keyup", function () {
+  //     var searchTerm = $(this).val().toLowerCase();
+
+  //     $(".dirmenu ul li").each(function () {
+  //       if (
+  //         $(this).filter("[data-search-term *= " + searchTerm + "]").length >
+  //           0 ||
+  //         searchTerm.length < 1
+  //       ) {
+  //         $(this).show();
+  //       } else {
+  //         $(this).hide();
+  //       }
+  //     });
+  //   });
+  // });
 });

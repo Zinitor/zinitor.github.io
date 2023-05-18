@@ -41,7 +41,7 @@
 #map-button {
   color: var(--toggle-color);
   text-decoration: none;
-  transition: color 0.3s;
+  transition: var(--tran03);
 }
 #info-button:hover,
 #map-button:hover {
@@ -75,7 +75,7 @@
 }
 
 .dirmenu {
-  width: 1920px;
+  width: 100%;
   height: 100%;
   margin-left: 250px;
   z-index: 1;
@@ -104,7 +104,7 @@
   --footer-color: #0D0A09;
 
   /* Transition */
-  --tran03: all 0.2s ease;
+  --tran02: all 0.2s ease;
   --tran03: all 0.3s ease;
   --tran04: all 0.4s ease;
   --tran05: all 0.5s ease;
@@ -122,7 +122,7 @@
   --footer-color: #29292C;
 
   /* Transition */
-  --tran03: all 0.2s ease;
+  --tran02: all 0.2s ease;
   --tran03: all 0.3s ease;
   --tran04: all 0.4s ease;
   --tran05: all 0.5s ease;
@@ -162,6 +162,19 @@ body {
   list-style: none;
   display: flex;
   align-items: center;
+}
+.fa-house{
+  color: var(--accent-color)
+}
+.fa-bars{
+  color: var(--accent-color);
+}
+.fa-sun{
+  color: var(--accent-color);
+}
+.sidebar a:link, i {
+  color: inherit;
+  text-decoration: none;
 }
 
 .sidebar header {
@@ -212,14 +225,14 @@ header.image-text .header-text {
   font-size: 2.8rem;
   padding: 14px;
 }
-.sidebar .menu-filters a.on {
+.sidebar .menu-filters .on {
   color: var(--accent-color);
-  transition: color 1s;
+  transition: var(--tran05);
 }
 
 .sidebar .menu-filters .off {
   color: var(--toggle-color);
-  transition: color 1s;
+  transition: var(--tran05);
 }
 /* css для info.html */
 .infomaincontent {
