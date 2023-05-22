@@ -56,9 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submenu = $('<ul class="nav-links"></ul>');
       submenu.hide();
       linksubmenu = $(
-        '<ul class="' +
-          group.name +
-          '">' +
+        '<ul>' +
           "<h2>" +
           group.name +
           "</h2>" +
@@ -91,16 +89,16 @@ document.addEventListener("DOMContentLoaded", function () {
       // Пункт подменю.
       // var submenuItem = $('<li><a href="#">' + item.name + "</a></li>"),
       var submenuItem = $(
-          "<a href=#>" +
+          '<a href=#>' +
             // '"index.html?group=' +
             // group.name +
             // "&item=" +
             // item.id +
             // '">' +
-            "<li>" +
+            '<li data-search-term="' + item.name.toLowerCase() + '">'+
             item.name +
-            "</li>" +
-            " </a> "
+            '</li>' +
+            '</a>'
         ), //ссылка на объект
         // var submenuItem = $('<li>' + item.name +'</li>').attr("href", "index.html?group=" + group.name + "&item=" + item.id);
         // Создаем метку.
@@ -180,27 +178,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", newTheme);
   });
-  // console.log($(".dirmenu > ul"));
-  // jQuery(document).ready(function ($) {
-  //   $(".dirmenu + ul").each(function () {
-  //     $(this).attr("data-search-term", $(this).text().toLowerCase());
-  //   });
+  jQuery(document).ready(function ($) {
+    console.log($('.dirmenu').children('ul'));
+    $(".dirmenu ul a li").each(function () {
+      $(this).attr("data-search-term", $(this).text().toLowerCase());
+    });
 
 
-  //   $(".live-search-box").on("keyup", function () {
-  //     var searchTerm = $(this).val().toLowerCase();
+    $(".live-search-box").on("keyup", function () {
+      var searchTerm = $(this).val().toLowerCase();
 
-  //     $(".dirmenu ul li").each(function () {
-  //       if (
-  //         $(this).filter("[data-search-term *= " + searchTerm + "]").length >
-  //           0 ||
-  //         searchTerm.length < 1
-  //       ) {
-  //         $(this).show();
-  //       } else {
-  //         $(this).hide();
-  //       }
-  //     });
-  //   });
-  // });
+      $(".dirmenu ul a li").each(function () {
+        if (
+          $(this).filter("[data-search-term *=" + searchTerm + "]").length >
+            0 ||
+          searchTerm.length < 1
+        ) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    });
+  });
 });
