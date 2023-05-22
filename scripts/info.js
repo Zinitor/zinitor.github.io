@@ -73,12 +73,12 @@ document.addEventListener("DOMContentLoaded", function () {
       '<ul class="' +
         group.name +
         '">' +
-        "<h2>" +
+        "<h3>" +
         group.name +
         "</h2>" +
         "</ul>"
     );
-    linksubmenu.appendTo($(".dirmenu"));
+    linksubmenu.appendTo($(".dirmenu .grid-group-wrapper"));
     for (var j = 0, m = group.items.length; j < m; j++) {
       createSubMenu(group.items[j], group);
     }
@@ -118,4 +118,26 @@ $(window).scroll(function () {
   if ($(window).scrollTop() + $(window).height() == $(document).height()) {
     $("#map-button").css("color", "var(--accent-color)");
   } else $("#map-button").css("color", "var(--toggle-color)");
+});
+
+jQuery(document).ready(function ($) {
+  $(".dirmenu ul a li").each(function () {
+    $(this).attr("data-search-term", $(this).text().toLowerCase());
+  });
+
+  $(".live-search-box").on("keyup", function () {
+    var searchTerm = $(this).val().toLowerCase();
+
+    $(".dirmenu ul a li").each(function () {
+      if (
+        $(this).filter("[data-search-term *=" + searchTerm + "]").length >
+          0 ||
+        searchTerm.length < 1
+      ) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  });
 });

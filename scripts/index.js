@@ -55,14 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Контейнер для подменю.
         submenu = $('<ul class="nav-links"></ul>');
       submenu.hide();
-      linksubmenu = $(
-        '<ul>' +
-          "<h2>" +
-          group.name +
-          "</h2>" +
-          "</ul>"
-      );
-      linksubmenu.appendTo($(".dirmenu"));
+      linksubmenu = $("<ul>" + "<h3>" + group.name + "</h3>" + "</ul>");
+      linksubmenu.appendTo($(".dirmenu .grid-group-wrapper"));
       // Добавляем коллекцию на карту.
       myMap.geoObjects.add(collection);
       // Добавляем подменю.
@@ -89,16 +83,18 @@ document.addEventListener("DOMContentLoaded", function () {
       // Пункт подменю.
       // var submenuItem = $('<li><a href="#">' + item.name + "</a></li>"),
       var submenuItem = $(
-          '<a href=#>' +
+          "<a href=#>" +
             // '"index.html?group=' +
             // group.name +
             // "&item=" +
             // item.id +
             // '">' +
-            '<li data-search-term="' + item.name.toLowerCase() + '">'+
+            '<li data-search-term="' +
+            item.name.toLowerCase() +
+            '">' +
             item.name +
-            '</li>' +
-            '</a>'
+            "</li>" +
+            "</a>"
         ), //ссылка на объект
         // var submenuItem = $('<li>' + item.name +'</li>').attr("href", "index.html?group=" + group.name + "&item=" + item.id);
         // Создаем метку.
@@ -179,11 +175,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.documentElement.setAttribute("data-theme", newTheme);
   });
   jQuery(document).ready(function ($) {
-    console.log($('.dirmenu').children('ul'));
+    console.log($(".dirmenu").children("ul"));
     $(".dirmenu ul a li").each(function () {
       $(this).attr("data-search-term", $(this).text().toLowerCase());
     });
-
 
     $(".live-search-box").on("keyup", function () {
       var searchTerm = $(this).val().toLowerCase();

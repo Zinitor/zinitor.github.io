@@ -82,13 +82,40 @@
   display: none;
   background-color: var(--body-color);
   position: fixed;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto;
+  grid-template-columns: auto;
+  grid-template-rows: max-content 8%;
   justify-content: space-evenly;
   align-items: center;
 }
-.dirmenu li{
+.dirmenu li {
   list-style: none;
+}
+.dirmenu .grid-group-wrapper {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  margin-right: 25%;
+}
+.dirmenu .search {
+  grid-row-start: 2;
+  position: absolute;
+  bottom: 20%;
+  justify-self: center;
+  margin-right: 12%;
+}
+.dirmenu ul {
+  margin: 1%;
+}
+.live-search-box {
+  color: var(--text-color);
+  border: 0.3em solid #ffffff;
+  border-radius: 1.5rem;
+  background: linear-gradient(to right, #FFFFF2, #81EFB8);
+  height: 20vh;
+  max-width: 46vw;
+  max-height: 7vh;
+
 }
 
 :root[data-theme="light"] {
@@ -96,12 +123,12 @@
   --body-color: #e4e9f7;
   --sidebar-color: #fff;
   --primary-color: #15a25c;
-  --primary-color-light: #E1ECF4;
+  --primary-color-light: #e1ecf4;
   --accent-color: #15a25c;
   --toggle-color: #babcc9;
-  --text-color: #0A0A0A;
+  --text-color: #0a0a0a;
   --footer-text-color: #808080;
-  --footer-color: #0D0A09;
+  --footer-color: #0d0a09;
 
   /* Transition */
   --tran02: all 0.2s ease;
@@ -111,15 +138,15 @@
 }
 :root[data-theme="dark"] {
   /* Colors */
-  --body-color: #0D0A09;
-  --sidebar-color: #0A0A0A;
+  --body-color: #0d0a09;
+  --sidebar-color: #0a0a0a;
   --primary-color: #e2e9e8;
   --primary-color-light: #040506;
   --accent-color: #15a25c;
   --toggle-color: #babcc9;
-  --text-color: #A1A6A5;
+  --text-color: #a1a6a5;
   --footer-text-color: #949998;
-  --footer-color: #29292C;
+  --footer-color: #29292c;
 
   /* Transition */
   --tran02: all 0.2s ease;
@@ -163,16 +190,17 @@ body {
   display: flex;
   align-items: center;
 }
-.fa-house{
-  color: var(--accent-color)
-}
-.fa-bars{
+.fa-house {
   color: var(--accent-color);
 }
-.fa-sun{
+.fa-bars {
   color: var(--accent-color);
 }
-.sidebar a:link, i {
+.fa-sun {
+  color: var(--accent-color);
+}
+.sidebar a:link,
+i {
   color: inherit;
   text-decoration: none;
 }
@@ -237,7 +265,7 @@ header.image-text .header-text {
 /* css для info.html */
 .infomaincontent {
   margin-left: 250px;
-  color: var(--text-color)
+  color: var(--text-color);
 }
 .infotitle {
   margin-left: 30px;
