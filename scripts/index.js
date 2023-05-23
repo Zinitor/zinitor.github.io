@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const themeCookie = getCookie("theme");
+  if (themeCookie !== "") {
+    document.documentElement.setAttribute("data-theme", themeCookie);
+  }
   ymaps.ready(init);
   $(document).on("click", "a#dir", function (e) {
     if ($(".dirmenu").css("display") == "none") {
@@ -177,6 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", newTheme);
+    setCookie('theme',newTheme,1);
   });
   jQuery(document).ready(function ($) {
     $(".dirmenu ul a li").each(function () {
@@ -200,3 +205,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+function getCookie(name) {
+  const cookies = document.cookie.split("; ");
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].split("=");
+    if (cookie[0] === name) {
+      return cookie[1];
+    }
+  }
+  return "";
+}
+
+
+const setCookie = (name, value, exdays) => {
+  const d = new Date(); // Gets current date
+  d.setTime(d.getTime() + (exdays*24*60*60*1000)); //calculates the date when it has to expire
+  const expires = "expires="+ d.toUTCString();
+  document.cookie = name + "=" + value + ";" + expires + ";path=/"; // sets the cookie
+}
