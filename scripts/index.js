@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Проверка если место вписано в url
     if (groupid) {
       itemid = itemid.slice(4);
-      myMap.setCenter(groups[groupid].items[itemid - 1].center, 16);
+      myMap.setCenter(groups[groupid].items[itemid].center, 16);
     }
   }
   const toggleThemeBtn = document.querySelector("#themechangebtn");
