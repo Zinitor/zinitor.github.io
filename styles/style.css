@@ -97,6 +97,7 @@
   grid-template-rows: auto auto;
   margin-right: 25%;
 }
+
 .dirmenu .search {
   grid-row-start: 2;
   position: absolute;
@@ -104,27 +105,43 @@
   justify-self: center;
   margin-right: 12%;
 }
+.dirmenu a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--tran02);
+}
+.dirmenu a:hover {
+  color: var(--toggle-color);
+  transition: var(--tran02);
+}
 .dirmenu ul {
   margin: 1%;
+}
+.dirmenu h3 {
+  color: var(--text-color);
 }
 .live-search-box {
   color: var(--text-color);
   border: 0.3em solid #ffffff;
   border-radius: 1.5rem;
-  background: linear-gradient(to right, #FFFFF2, #81EFB8);
+  background: linear-gradient(
+    to right,
+    var(--body-color),
+    var(--primary-color-light)
+  );
   height: 20vh;
   max-width: 46vw;
   max-height: 7vh;
-
 }
 
 :root[data-theme="light"] {
   /* Colors */
-  --body-color: #e4e9f7;
-  --sidebar-color: #fff;
+  --body-color: #f5fbf6;
+  --sidebar-color: #ffffff;
   --primary-color: #15a25c;
+  --shadow-color: #d2eeda;
   --primary-color-light: #e1ecf4;
-  --accent-color: #15a25c;
+  --accent-color: #009854;
   --toggle-color: #babcc9;
   --text-color: #0a0a0a;
   --footer-text-color: #808080;
@@ -138,15 +155,16 @@
 }
 :root[data-theme="dark"] {
   /* Colors */
-  --body-color: #0d0a09;
+  --body-color: #0d2315;
   --sidebar-color: #0a0a0a;
-  --primary-color: #e2e9e8;
+  --primary-color: #37f18f;
+  --shadow-color: #0d2315;
   --primary-color-light: #040506;
-  --accent-color: #15a25c;
-  --toggle-color: #babcc9;
-  --text-color: #a1a6a5;
+  --accent-color: #009854;
+  --toggle-color: #c4e8cf;
+  --text-color: #b5b9b9;
   --footer-text-color: #949998;
-  --footer-color: #29292c;
+  --footer-color: #bcc397;
 
   /* Transition */
   --tran02: all 0.2s ease;
@@ -158,6 +176,7 @@
 body {
   height: 100vh;
   background: var(--body-color);
+  transition: var(--tran05);
 }
 /* Reusable CSS */
 .sidebar .text {
@@ -181,23 +200,24 @@ body {
   width: 250px;
   padding: 10px 14px;
   background: var(--sidebar-color);
+  transition: var(--tran04);
 }
 .sidebar li {
   height: 50px;
-  background: var(--primary-color-light);
+  background: var(--shadow-color);
   margin-top: 10px;
   list-style: none;
   display: flex;
   align-items: center;
 }
 .fa-house {
-  color: var(--accent-color);
+  color: var(--primary-color);
 }
 .fa-bars {
-  color: var(--accent-color);
+  color: var(--primary-color);
 }
 .fa-sun {
-  color: var(--accent-color);
+  color: var(--primary-color);
 }
 .sidebar a:link,
 i {
@@ -248,19 +268,31 @@ header.image-text .header-text {
   font-size: 22px;
 }
 .sidebar .menu-filters li {
-  background: var(--primary-color-light);
+  background: var(--shadow-color);
+  transition: var(--tran04);
   justify-content: center;
   font-size: 2.8rem;
   padding: 14px;
 }
+.menubutton li {
+  background: var(--shadow-color);
+  transition: var(--tran04);
+}
 .sidebar .menu-filters .on {
-  color: var(--accent-color);
+  color: var(--primary-color);
   transition: var(--tran05);
 }
 
 .sidebar .menu-filters .off {
   color: var(--toggle-color);
   transition: var(--tran05);
+}
+
+.sidebar .menu-list li {
+  transition: var(--tran04);
+}
+.nav-links {
+  transition: var(--tran04);
 }
 /* css для info.html */
 .infomaincontent {
@@ -302,6 +334,7 @@ header.image-text .header-text {
   bottom: -10px;
   left: 0;
   right: 0;
+  transition: var(--tran05);
 }
 .infofooter li {
   list-style: none;

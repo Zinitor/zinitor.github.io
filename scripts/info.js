@@ -4,9 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
   $(document).on("click", "a#dir", function (e) {
     if ($(".dirmenu").css("display") == "none") {
       $(".dirmenu").css("display", "grid");
+      $(".nav-links").css("background", "var(--accent-color)")
       $("#map-button").css("display", "none");
     } else {
       $(".dirmenu").css("display", "none");
+      $(".nav-links").css("background", "var(--shadow-color)")
       $("#map-button").css("display", "block");
     }
   });
