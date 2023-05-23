@@ -29,6 +29,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function createMenuGroup(group) {
+      //Вызывает баг из-за которого при возвращении на страницу центрируется не на том объекте
+      group.items.sort(function (a, b) {
+        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+          return -1;
+        }
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
       // Пункт меню.
       var menuItem = $(
           '<li><a href="#" class="on">' +
@@ -68,17 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
       for (var j = 0, m = group.items.length; j < m; j++) {
         createSubMenu(group.items[j], collection, submenu, group);
       }
-      
-      //Вызывает баг из-за которого при возвращении на страницу центрируется не на том объекте
-      group.items.sort(function (a, b) {
-        if (a.name.toLowerCase() < b.name.toLowerCase()) {
-          return -1;
-        }
-        if (a.name.toLowerCase() > b.name.toLowerCase()) {
-          return 1;
-        }
-        return 0;
-      });
     }
 
     function createSubMenu(item, collection, submenu, group) {
@@ -167,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Проверка если место вписано в url
     if (groupid) {
       //т.к. индекс меняется при сортирровке то необходимо заново находить нужный индекс по id
-      itemid = groups[groupid].items.map(e => e.id).indexOf(itemid);
+      itemid = groups[groupid].items.map((e) => e.id).indexOf(itemid);
       myMap.setCenter(groups[groupid].items[itemid].center, 16);
     }
   }
