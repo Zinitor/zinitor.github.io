@@ -14,7 +14,6 @@
 }
 /* html, body {margin: 0; height: 100%; overflow: hidden} */
 
-
 .infobutton,
 .mapbutton {
   position: fixed;
@@ -181,9 +180,7 @@ body {
   background: var(--body-color);
   transition: var(--tran05);
 }
-/* Reusable CSS */
 .sidebar .text {
-  font-size: 120%;
   font-weight: 500;
   color: var(--text-color);
 }
@@ -213,13 +210,13 @@ body {
   display: flex;
   align-items: center;
 }
-.fa-house {
-  color: var(--primary-color);
-}
 .fa-bars {
   color: var(--primary-color);
 }
 .fa-sun {
+  color: var(--primary-color);
+}
+.fa-moon {
   color: var(--primary-color);
 }
 .sidebar a:link,
@@ -228,22 +225,18 @@ i {
   text-decoration: none;
 }
 
-.sidebar header {
-  position: relative;
-}
-
 .sidebar image-text img {
   width: 40px;
   border-radius: 6px;
 }
 
 .sidebar header .image-text {
-  display: flex;
+  /* display: flex; */
   align-items: center;
 }
 
 header.image-text .header-text {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
 }
 
@@ -254,21 +247,12 @@ header.image-text .header-text {
 .header-text .profession {
   margin-top: -2px;
 }
-
-.sidebar header .toggle {
-  position: absolute;
-  top: 50%;
-  right: -25px;
-  transform: translateY(-50%);
-  height: 25px;
-  width: 25px;
-  background: var(--primary-color);
-  display: flex;
-  align-items: center;
+.menu-list li {
+  transition: var(--tran04);
   justify-content: center;
-  border-radius: 50%;
-  color: var(--sidebar-color);
+  font-size: 1.8rem;
 }
+
 .sidebar .menu-filters li {
   background: var(--shadow-color);
   transition: var(--tran04);
@@ -290,11 +274,14 @@ header.image-text .header-text {
   transition: var(--tran05);
 }
 
-.sidebar .menu-list li {
-  transition: var(--tran04);
-}
 .nav-links {
   transition: var(--tran04);
+}
+
+.menubutton li {
+  transition: var(--tran04);
+  justify-content: center;
+  font-size: 1.8rem;
 }
 /* css для info.html */
 .infomaincontent {
@@ -315,10 +302,9 @@ header.image-text .header-text {
   min-height: 70vh;
 }
 .infomaincontent img {
-  width: 25vw;
+  width: 40%;
   float: left;
-  margin: 3px;
-  margin-right: 10px;
+  margin: 1%;
   border: 6px solid var(--toggle-color);
   border-radius: 30px;
   background: none;
@@ -329,7 +315,8 @@ header.image-text .header-text {
   padding-top: 1%;
   padding-left: 20%;
   background-color: var(--footer-color);
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   position: relative;
   bottom: -1%;
   left: 0;
@@ -363,4 +350,96 @@ header.image-text .header-text {
 .footerlist2 {
   padding-left: 4%;
   padding-right: 4%;
+}
+
+/*Мобильный css*/
+@media (max-width: 500px) {
+  .sidebar header .image-text {
+    font-size: x-small;
+  }
+  .dirmenu {
+    width: 100%;
+    height: 100%;
+    margin-left: 20%;
+    z-index: 1;
+    display: none;
+    background-color: var(--body-color);
+    position: fixed;
+    grid-template-columns: auto;
+    grid-template-rows: max-content 8%;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: auto;
+    bottom: 0;
+  }
+  .dirmenu .grid-group-wrapper {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    margin-right: 25%;
+  }
+  .infotitle {
+    font-size: 1rem;
+    margin-left: 0;
+  }
+  .infomaincontent img {
+    width: 75%;
+    margin: 3px;
+    margin-right: 12.5%;
+    margin-left: 12.5%;
+    border: 6px solid var(--toggle-color);
+    border-radius: 30px;
+    background: none;
+  }
+  .infotitle h1 {
+    text-align: center;
+    font-size: inherit;
+  }
+  .infoauthor h2 {
+    font-size: inherit;
+    text-align: center;
+    margin-left: 0;
+  }
+  .infodescription {
+    font-size: 0.9em;
+  }
+
+  .infofooter {
+    grid-template-columns: auto;
+    grid-template-rows: min-content;
+    height: 8rem;
+    right: 0;
+    justify-items: right;
+  }
+  .infofooter ul {
+    width: 50vw;
+  }
+  .copyright {
+    width: 50vw;
+    padding-left: 3%;
+  }
+  .infobutton,
+  .mapbutton {
+    position: fixed;
+    bottom: 3vh;
+    width: 6rem;
+    height: 6rem;
+    margin-left: 22%;
+    background-color: var(--sidebar-color);
+    border-radius: 30px;
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+    z-index: 1;
+    box-sizing: border-box;
+    border: 6px solid #ffffff;
+    background: none;
+    box-shadow: 6px 6px 7px 4px rgba(0, 0, 0, 0.35);
+  }
+  .mapbutton i,
+  .infobutton i {
+    padding: 10%;
+    font-size: 4rem;
+  }
 }

@@ -2,16 +2,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const themeCookie = getCookie("theme");
   if (themeCookie !== "") {
     document.documentElement.setAttribute("data-theme", themeCookie);
+    if (themeCookie == "dark") {
+      $(".fa-sun").toggleClass("fa-moon");
+    }
   }
   ymaps.ready(init);
   $(document).on("click", "a#dir", function (e) {
     if ($(".dirmenu").css("display") == "none") {
+      $(".fa-bars").toggleClass("fa-xmark");
+      $(".fa-bars").css("color", "var(--shadow-color)");
       $(".dirmenu").css("display", "grid");
-      $(".nav-links").css("background", "var(--accent-color)")
+      $(".nav-links").css("background", "var(--accent-color)");
       $("#info-button").css("display", "none");
     } else {
+      $(".fa-bars").toggleClass("fa-xmark");
+      $(".fa-bars").css("color", "var(--accent-color)");
       $(".dirmenu").css("display", "none");
-      $(".nav-links").css("background", "var(--shadow-color)")
+      $(".nav-links").css("background", "var(--shadow-color)");
       $("#info-button").css("display", "block");
     }
   });
@@ -142,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
       //При клике на объекте в перечени
       submenuItem.bind("click", function () {
         $(".dirmenu").css("display", "none"); //закрыть перечень
+        $(".nav-links").css("background", "var(--shadow-color)");
         $("#info-button").css("display", "block");
         myMap.setCenter(placemark.geometry.getCoordinates(), 16); //отцентрировать карту на объекте
         document.getElementById("info-button").href =
@@ -181,7 +189,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", newTheme);
-    setCookie('theme',newTheme,1);
+    $(".fa-sun").toggleClass("fa-moon");
+    setCookie("theme", newTheme, 1);
   });
   jQuery(document).ready(function ($) {
     $(".dirmenu ul a li").each(function () {
@@ -216,10 +225,9 @@ function getCookie(name) {
   return "";
 }
 
-
 const setCookie = (name, value, exdays) => {
   const d = new Date(); // Gets current date
-  d.setTime(d.getTime() + (exdays*24*60*60*1000)); //calculates the date when it has to expire
-  const expires = "expires="+ d.toUTCString();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //calculates the date when it has to expire
+  const expires = "expires=" + d.toUTCString();
   document.cookie = name + "=" + value + ";" + expires + ";path=/"; // sets the cookie
-}
+};

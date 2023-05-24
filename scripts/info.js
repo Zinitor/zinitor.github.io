@@ -3,16 +3,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const themeCookie = getCookie("theme");
   if (themeCookie !== "") {
     document.documentElement.setAttribute("data-theme", themeCookie);
+    if (themeCookie == "dark") {
+      $(".fa-sun").toggleClass("fa-moon");
+    }
   }
   //Открытие закрытие меню
   $(document).on("click", "a#dir", function (e) {
     if ($(".dirmenu").css("display") == "none") {
+      $(".fa-bars").toggleClass("fa-xmark");
       $(".dirmenu").css("display", "grid");
-      $(".nav-links").css("background", "var(--accent-color)")
+      $(".nav-links").css("background", "var(--accent-color)");
       $("#map-button").css("display", "none");
     } else {
+      $(".fa-bars").toggleClass("fa-xmark");
       $(".dirmenu").css("display", "none");
-      $(".nav-links").css("background", "var(--shadow-color)")
+      $(".nav-links").css("background", "var(--shadow-color)");
       $("#map-button").css("display", "block");
     }
   });
@@ -22,7 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", newTheme);
-    setCookie('theme',newTheme,1);
+    $(".fa-sun").toggleClass("fa-moon");
+    setCookie("theme", newTheme, 1);
   });
   //Смена темы
   const queryString = window.location.search;
@@ -37,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var landmarkDate = document.getElementById("landmark-date");
   var landmarkDescription = document.getElementById("landmark-description");
   var landmarkImage = document.getElementById("landmark-image");
+  var landmarkInfoUrl = document.getElementById("infourl");
 
   var filePath = ".//" + "groups/" + groupid + "/" + itemid + ".json";
   $.getJSON(filePath)
@@ -47,6 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
         landmarkAuthor.innerHTML = data.author;
         landmarkDate.innerHTML = data.date;
         landmarkDescription.innerHTML = data.description;
+        if (data.infoUrl) {
+          landmarkInfoUrl.href = data.infoUrl;
+        }
+
         // landmarkDescription.innerHTML = JSON.stringify(data.description);
 
         landmarkImage.src = data.imageUrl;
@@ -66,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
     createMenuGroup(groups[i]);
   }
   function createMenuGroup(group) {
-    group.items.sort(function(a,b){
+    group.items.sort(function (a, b) {
       if (a.name < b.name) {
         return -1;
       }
@@ -102,18 +113,20 @@ document.addEventListener("DOMContentLoaded", function () {
         landmarkDate.innerHTML = data.date;
         landmarkDescription.innerHTML = data.description;
         landmarkImage.src = data.imageUrl;
+
         document.title = data.name;
         $(".dirmenu").css("display", "none");
+        $(".nav-links").css("background", "var(--shadow-color)");
         $("#map-button").css("display", "block");
         goBackToMapButtonUrl(group.groupid, item.id);
       });
     });
   }
 
-  goBackToMapButtonUrl(groupid,itemid);
+  goBackToMapButtonUrl(groupid, itemid);
 });
 
-function goBackToMapButtonUrl(groupid,itemid) {
+function goBackToMapButtonUrl(groupid, itemid) {
   document.getElementById("map-button").href =
     "index.html?groupid=" +
     encodeURIComponent(groupid) +
@@ -137,8 +150,7 @@ jQuery(document).ready(function ($) {
 
     $(".dirmenu ul a li").each(function () {
       if (
-        $(this).filter("[data-search-term *=" + searchTerm + "]").length >
-          0 ||
+        $(this).filter("[data-search-term *=" + searchTerm + "]").length > 0 ||
         searchTerm.length < 1
       ) {
         $(this).show();
@@ -159,10 +171,9 @@ function getCookie(name) {
   return "";
 }
 
-
 const setCookie = (name, value, exdays) => {
   const d = new Date(); // Gets current date
-  d.setTime(d.getTime() + (exdays*24*60*60*1000)); //calculates the date when it has to expire
-  const expires = "expires="+ d.toUTCString();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //calculates the date when it has to expire
+  const expires = "expires=" + d.toUTCString();
   document.cookie = name + "=" + value + ";" + expires + ";path=/"; // sets the cookie
-}
+};
