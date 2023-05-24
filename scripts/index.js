@@ -194,6 +194,19 @@ document.addEventListener("DOMContentLoaded", function () {
     $(".fa-sun").toggleClass("fa-moon");
     setCookie("theme", newTheme, 1);
   });
+  // Get references to the alert widget and close button
+  const alertWidget = document.getElementById("alertWidget");
+  const closeAlertBtn = document.getElementById("closeAlertBtn");
+  // Event listener for the close button
+  closeAlertBtn.addEventListener("click", hideAlertDialog);
+  // Check if the user is a new visitor (you can use cookies or other means to determine this)
+  
+  const isOldUser = getCookie("visited");
+  // Show the alert widget if it's a new user
+  if (isOldUser === "true") {
+    $("#alertWidget").css("display", "none");
+    hideAlertDialog();
+  }
   jQuery(document).ready(function ($) {
     $(".dirmenu ul a li").each(function () {
       $(this).attr("data-search-term", $(this).text().toLowerCase());
@@ -216,6 +229,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+// Function to show the alert widget
+function showAlertDialog() {
+  alertWidget.style.display = "flex";
+}
+
+// Function to hide the alert widget
+function hideAlertDialog() {
+  setCookie("visited", true, 1);
+  alertWidget.style.display = "none";
+}
+
 function getCookie(name) {
   const cookies = document.cookie.split("; ");
   for (let i = 0; i < cookies.length; i++) {
