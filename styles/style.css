@@ -18,7 +18,7 @@
 .infobutton,
 .mapbutton {
   position: fixed;
-  bottom: 4%;
+  bottom: 3vh;
   width: 8rem;
   height: 8rem;
   margin-left: 22%;
