@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
       $("#info-button").css("display", "none");
     } else {
       $(".fa-bars").toggleClass("fa-xmark");
-      $(".fa-bars").css("color", "var(--accent-color)");
+      $(".fa-bars").css("color", "var(--primary-color)");
       $(".dirmenu").css("display", "none");
       $(".nav-links").css("background", "var(--shadow-color)");
       $("#info-button").css("display", "block");
@@ -150,6 +150,8 @@ document.addEventListener("DOMContentLoaded", function () {
       submenuItem.bind("click", function () {
         $(".dirmenu").css("display", "none"); //закрыть перечень
         $(".nav-links").css("background", "var(--shadow-color)");
+        $(".fa-bars").toggleClass("fa-xmark");
+        $(".fa-bars").css("color", "var(--primary-color)");
         $("#info-button").css("display", "block");
         myMap.setCenter(placemark.geometry.getCoordinates(), 16); //отцентрировать карту на объекте
         document.getElementById("info-button").href =

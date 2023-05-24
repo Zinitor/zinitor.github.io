@@ -83,8 +83,8 @@
   background-color: var(--body-color);
   position: fixed;
   grid-template-columns: auto;
-  grid-template-rows: max-content 8%;
-  justify-content: space-evenly;
+  grid-template-rows: max-content max-content;
+  justify-content: normal;
   align-items: center;
   overflow: auto;
   bottom: 0;
@@ -101,11 +101,9 @@
 }
 
 .dirmenu .search {
-  grid-row-start: 2;
-  position: absolute;
-  bottom: 20%;
+  grid-row-start: 1;
   justify-self: center;
-  margin-right: 12%;
+  margin-right: 24%;
 }
 .dirmenu a {
   color: var(--primary-color);
@@ -123,14 +121,15 @@
   color: var(--text-color);
 }
 .live-search-box {
-  color: var(--text-color);
-  border: 0.3em solid #ffffff;
+  color: var(--sidebar-color);
+  border: 0.3em solid var(--toggle-color);
   border-radius: 1.5rem;
-  background: linear-gradient(
+  background-color: var(--primary-color);
+  /* background: linear-gradient(
     to right,
-    var(--body-color),
-    var(--primary-color-light)
-  );
+    var(--primary-color),
+    var(--shadow-color)
+  ); */
   height: 20vh;
   max-width: 46vw;
   max-height: 7vh;
@@ -258,7 +257,14 @@ header.image-text .header-text {
   transition: var(--tran04);
   justify-content: center;
   font-size: 1.8rem;
-  padding: 14px;
+}
+.sidebar .menu-filters li a {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 .menubutton li {
   background: var(--shadow-color);
@@ -275,6 +281,7 @@ header.image-text .header-text {
 }
 
 .nav-links {
+  color: var(--primary-color);
   transition: var(--tran04);
 }
 
@@ -366,11 +373,19 @@ header.image-text .header-text {
     background-color: var(--body-color);
     position: fixed;
     grid-template-columns: auto;
-    grid-template-rows: max-content 8%;
+    grid-template-rows: max-content max-content;
     justify-content: space-evenly;
     align-items: center;
     overflow: auto;
     bottom: 0;
+  }
+  .dirmenu .search {
+    grid-row-start: 1;
+    position: fixed;
+    top: 1vh;
+  }
+  .live-search-box{
+    height: 5vh;
   }
   .dirmenu .grid-group-wrapper {
     box-sizing: border-box;
@@ -378,6 +393,7 @@ header.image-text .header-text {
     grid-template-columns: auto;
     grid-template-rows: auto auto;
     margin-right: 25%;
+    margin-top: 6vh;
   }
   .infotitle {
     font-size: 1rem;

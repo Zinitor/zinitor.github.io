@@ -11,11 +11,13 @@ document.addEventListener("DOMContentLoaded", function () {
   $(document).on("click", "a#dir", function (e) {
     if ($(".dirmenu").css("display") == "none") {
       $(".fa-bars").toggleClass("fa-xmark");
+      $(".fa-bars").css("color", "var(--shadow-color)");
       $(".dirmenu").css("display", "grid");
-      $(".nav-links").css("background", "var(--accent-color)");
+      $(".nav-links").css("background", "var(--primary-color)");
       $("#map-button").css("display", "none");
     } else {
       $(".fa-bars").toggleClass("fa-xmark");
+      $(".fa-bars").css("color", "var(--primary-color)");
       $(".dirmenu").css("display", "none");
       $(".nav-links").css("background", "var(--shadow-color)");
       $("#map-button").css("display", "block");
@@ -117,6 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.title = data.name;
         $(".dirmenu").css("display", "none");
         $(".nav-links").css("background", "var(--shadow-color)");
+        $(".fa-bars").toggleClass("fa-xmark");
+        $(".fa-bars").css("color", "var(--primary-color)");
         $("#map-button").css("display", "block");
         goBackToMapButtonUrl(group.groupid, item.id);
       });
