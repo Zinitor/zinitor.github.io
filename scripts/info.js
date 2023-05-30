@@ -175,7 +175,7 @@ function getCookie(name) {
   return "";
 }
 
-const setCookie = (name, value, exdays) => {
+const setCookie = (namee, value, exdays) => {
   const d = new Date(); // Gets current date
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //calculates the date when it has to expire
   const expires = "expires=" + d.toUTCString();
