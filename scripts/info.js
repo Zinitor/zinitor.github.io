@@ -1,5 +1,15 @@
 //wait for page to load
 document.addEventListener("DOMContentLoaded", function () {
+  
+    //Смена темы
+  const toggleThemeBtn = document.querySelector("#themechangebtn");
+  toggleThemeBtn.addEventListener("click", function () {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    $(".fa-sun").toggleClass("fa-moon");
+    setCookie("theme", newTheme, 1);
+  });
   const themeCookie = getCookie("theme");
   if (themeCookie !== "") {
     document.documentElement.setAttribute("data-theme", themeCookie);
@@ -7,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
       $(".fa-sun").toggleClass("fa-moon");
     }
   }
-  //Открытие закрытие меню
+
+  //Открытие закрытие перечня
   $(document).on("click", "a#dir", function (e) {
     if ($(".dirmenu").css("display") == "none") {
       $(".fa-bars").toggleClass("fa-xmark");
@@ -24,18 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  const toggleThemeBtn = document.querySelector("#themechangebtn");
-  toggleThemeBtn.addEventListener("click", function () {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    $(".fa-sun").toggleClass("fa-moon");
-    setCookie("theme", newTheme, 1);
-  });
-  //Смена темы
+  // Создание нового поискового запроса
   const queryString = window.location.search;
-
-  // Create a new URLSearchParams object and pass the query string as a parameter
   const urlParams = new URLSearchParams(queryString);
 
   var groupid = urlParams.get("groupid");
@@ -59,19 +60,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.infoUrl) {
           landmarkInfoUrl.href = data.infoUrl;
         }
-
-        // landmarkDescription.innerHTML = JSON.stringify(data.description);
-
         landmarkImage.src = data.imageUrl;
       } else {
         console.log("The element does not exist.");
       }
-      // Use the itemName variable as needed
     })
     .fail(function (jqxhr, textStatus, error) {
       var err = textStatus + ", " + error;
       console.log("Error loading JSON data: " + err);
-      // Handle the error as needed
+      // Проверка ошибок
     });
 
   //Создание перечня
@@ -104,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   function createSubMenu(item, group) {
-    // "<a href=info.html?groupid="+group.groupid +"&item="+item.id+">" +
     var submenuItem = $("<a href=#>" + "<li>" + item.name + "</li>" + " </a> ");
     submenuItem.appendTo(linksubmenu);
     submenuItem.bind("click", function () {
@@ -126,25 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
-
-  goBackToMapButtonUrl(groupid, itemid);
-});
-
-function goBackToMapButtonUrl(groupid, itemid) {
-  document.getElementById("map-button").href =
-    "index.html?groupid=" +
-    encodeURIComponent(groupid) +
-    "&item=" +
-    encodeURIComponent(itemid);
-}
-//Смена стиля кнопки когда достигаем конца страницы
-$(window).scroll(function () {
-  if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-    $("#map-button").css("color", "var(--accent-color)");
-  } else $("#map-button").css("color", "var(--toggle-color)");
-});
-
-jQuery(document).ready(function ($) {
+  //Реализация поиска
   $(".dirmenu ul a li").each(function () {
     $(this).attr("data-search-term", $(this).text().toLowerCase());
   });
@@ -163,7 +141,24 @@ jQuery(document).ready(function ($) {
       }
     });
   });
+
+  goBackToMapButtonUrl(groupid, itemid);
 });
+
+function goBackToMapButtonUrl(groupid, itemid) {
+  document.getElementById("map-button").href =
+    "index.html?groupid=" +
+    encodeURIComponent(groupid) +
+    "&item=" +
+    encodeURIComponent(itemid);
+}
+//Смена стиля кнопки когда достигаем конца страницы
+$(window).scroll(function () {
+  if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+    $("#map-button").css("color", "var(--accent-color)");
+  } else $("#map-button").css("color", "var(--toggle-color)");
+});
+
 function getCookie(name) {
   const cookies = document.cookie.split("; ");
   for (let i = 0; i < cookies.length; i++) {
@@ -176,8 +171,8 @@ function getCookie(name) {
 }
 
 const setCookie = (name, value, exdays) => {
-  const d = new Date(); // Gets current date
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //calculates the date when it has to expire
+  const d = new Date(); // Текущая дата
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //Дата смерти
   const expires = "expires=" + d.toUTCString();
-  document.cookie = name + "=" + value + ";" + expires + ";path=/"; // sets the cookie
+  document.cookie = name + "=" + value + ";" + expires + ";path=/"; // Установка куки
 };

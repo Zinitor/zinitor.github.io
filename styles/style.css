@@ -362,6 +362,7 @@ header.image-text .header-text {
   border: 6px solid var(--toggle-color);
   border-radius: 30px;
   background: none;
+  max-width: 25em;
 }
 .infofooter {
   color: var(--footer-text-color);

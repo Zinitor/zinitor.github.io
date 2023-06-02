@@ -1,4 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+  //смена темы
+  const toggleThemeBtn = document.querySelector("#themechangebtn");
+  toggleThemeBtn.addEventListener("click", function () {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    $(".fa-sun").toggleClass("fa-moon");
+    setCookie("theme", newTheme, 1);
+  });
+
   const themeCookie = getCookie("theme");
   if (themeCookie !== "") {
     document.documentElement.setAttribute("data-theme", themeCookie);
@@ -6,7 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
       $(".fa-sun").toggleClass("fa-moon");
     }
   }
-  ymaps.ready(init);
+  // Находим элемент
+  const closeAlertBtn = document.getElementById("closeAlertBtn");
+  // Подписываемся на нажатие
+  closeAlertBtn.addEventListener("click", hideAlertDialog);
+
+  const isOldUser = getCookie("visited");
+  // Если старый пользователь скрываем виджет
+  if (isOldUser === "true") {
+    $("#alertWidget").css("display", "none");
+  }
   $(document).on("click", "a#dir", function (e) {
     if ($(".dirmenu").css("display") == "none") {
       $(".fa-bars").toggleClass("fa-xmark");
@@ -22,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
       $("#info-button").css("display", "block");
     }
   });
+  ymaps.ready(init);
   function init() {
     // Создание экземпляра карты.
     var myMap = new ymaps.Map(
@@ -42,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function createMenuGroup(group) {
-      //Вызывает баг из-за которого при возвращении на страницу центрируется не на том объекте
       group.items.sort(function (a, b) {
         if (a.name.toLowerCase() < b.name.toLowerCase()) {
           return -1;
@@ -94,15 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function createSubMenu(item, collection, submenu, group) {
-      // Пункт подменю.
-      // var submenuItem = $('<li><a href="#">' + item.name + "</a></li>"),
       var submenuItem = $(
           "<a href=#>" +
-            // '"index.html?group=' +
-            // group.name +
-            // "&item=" +
-            // item.id +
-            // '">' +
             '<li data-search-term="' +
             item.name.toLowerCase() +
             '">' +
@@ -110,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "</li>" +
             "</a>"
         ), //ссылка на объект
-        // var submenuItem = $('<li>' + item.name +'</li>').attr("href", "index.html?group=" + group.name + "&item=" + item.id);
         // Создаем метку.
         placemark = new ymaps.Placemark(item.center, {
           balloonContent: item.name,
@@ -124,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
             encodeURIComponent(item.id);
         })
         .add("balloonopen", function () {
-          $("#info-button").css("color", "var(--accent-color)");
+          $("#info-button").css("color", "var(--accent-color)"); //смена css
         })
         .add("balloonclose", function () {
           $("#info-button").css("color", "var(--toggle-color)");
@@ -136,16 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
       submenuItem
         .appendTo(linksubmenu, submenu)
         // При клике по пункту подменю закрываем справочник и центрируемся на объекте
-        .find("a")
-        .bind("click", function () {
-          if (!placemark.balloon.isOpen()) {
-            // $('#map').css("display", 'block');
-            // placemark.balloon.open();
-          } else {
-            // placemark.balloon.close();
-          }
-          return false;
-        });
+        .find("a");
       //При клике на объекте в перечени
       submenuItem.bind("click", function () {
         $(".dirmenu").css("display", "none"); //закрыть перечень
@@ -162,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
         placemark.balloon.open(); //Открыть баллун
       });
     }
-
+    //Происходит после создания меню и вывода объектов
     // Добавляем меню в тэг menu.
     menu.appendTo($(".sidebar .menu-bar .menu"));
     // Выставляем масштаб карты чтобы были видны все группы.
@@ -170,70 +173,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Нахождение юрл параметра
     var urlParams = new URLSearchParams(window.location.search);
-    var groupid = urlParams.get("groupid");
-    var itemid = urlParams.get("item");
-    //Присвоение адреса снова к кнопке когда пользователь вернулся со страницы информации
-    document.getElementById("info-button").href =
-      "info.html?groupid=" +
-      encodeURIComponent(groupid) +
-      "&item=" +
-      encodeURIComponent(itemid);
-
     // Проверка если место вписано в url
-    if (groupid) {
-      //т.к. индекс меняется при сортирровке то необходимо заново находить нужный индекс по id
-      itemid = groups[groupid].items.map((e) => e.id).indexOf(itemid);
-      myMap.setCenter(groups[groupid].items[itemid].center, 16);
+    if (urlParams.has("groupid") && urlParams.has("item")) {
+      var groupid = urlParams.get("groupid");
+      var itemid = urlParams.get("item");
+      //Присвоение адреса снова к кнопке когда пользователь вернулся со страницы информации
+      document.getElementById("info-button").href =
+        "info.html?groupid=" +
+        encodeURIComponent(groupid) +
+        "&item=" +
+        encodeURIComponent(itemid);
+      if (groupid) {
+        //т.к. индекс меняется при сортировке то необходимо заново находить нужный индекс по id
+        itemid = groups[groupid].items.map((e) => e.id).indexOf(itemid);
+        myMap.setCenter(groups[groupid].items[itemid].center, 16);
+      }
     }
   }
-  const toggleThemeBtn = document.querySelector("#themechangebtn");
-  toggleThemeBtn.addEventListener("click", function () {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    $(".fa-sun").toggleClass("fa-moon");
-    setCookie("theme", newTheme, 1);
+  //Реализация поиска
+  $(".dirmenu ul a li").each(function () {
+    //добавление к каждому элементу перечня аттрибута имени
+    $(this).attr("data-search-term", $(this).text().toLowerCase());
   });
-  // Get references to the alert widget and close button
-  const alertWidget = document.getElementById("alertWidget");
-  const closeAlertBtn = document.getElementById("closeAlertBtn");
-  // Event listener for the close button
-  closeAlertBtn.addEventListener("click", hideAlertDialog);
-  // Check if the user is a new visitor (you can use cookies or other means to determine this)
-  
-  const isOldUser = getCookie("visited");
-  // Show the alert widget if it's a new user
-  if (isOldUser === "true") {
-    $("#alertWidget").css("display", "none");
-    hideAlertDialog();
-  }
-  jQuery(document).ready(function ($) {
+
+  $(".live-search-box").on("keyup", function () {
+    var searchTerm = $(this).val().toLowerCase();
+
     $(".dirmenu ul a li").each(function () {
-      $(this).attr("data-search-term", $(this).text().toLowerCase());
-    });
-
-    $(".live-search-box").on("keyup", function () {
-      var searchTerm = $(this).val().toLowerCase();
-
-      $(".dirmenu ul a li").each(function () {
-        if (
-          $(this).filter("[data-search-term *=" + searchTerm + "]").length >
-            0 ||
-          searchTerm.length < 1
-        ) {
-          $(this).show();
-        } else {
-          $(this).hide();
-        }
-      });
+      if (
+        $(this).filter("[data-search-term *=" + searchTerm + "]").length > 0 ||
+        searchTerm.length < 1
+      ) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
     });
   });
 });
 
-// Function to show the alert widget
-function showAlertDialog() {
-  alertWidget.style.display = "flex";
-}
 
 // Function to hide the alert widget
 function hideAlertDialog() {
@@ -253,8 +231,8 @@ function getCookie(name) {
 }
 
 const setCookie = (name, value, exdays) => {
-  const d = new Date(); // Gets current date
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //calculates the date when it has to expire
+  const d = new Date(); // Текущая дата
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000); //Дата смерти
   const expires = "expires=" + d.toUTCString();
-  document.cookie = name + "=" + value + ";" + expires + ";path=/"; // sets the cookie
+  document.cookie = name + "=" + value + ";" + expires + ";path=/"; // Установка куки
 };
