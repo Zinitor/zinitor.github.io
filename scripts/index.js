@@ -1,47 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
-  //смена темы
-  const toggleThemeBtn = document.querySelector("#themechangebtn");
-  toggleThemeBtn.addEventListener("click", function () {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    $(".fa-sun").toggleClass("fa-moon");
-    setCookie("theme", newTheme, 1);
-  });
-
-  const themeCookie = getCookie("theme");
-  if (themeCookie !== "") {
-    document.documentElement.setAttribute("data-theme", themeCookie);
-    if (themeCookie == "dark") {
-      $(".fa-sun").toggleClass("fa-moon");
-    }
-  }
-  // Находим элемент
-  const closeAlertBtn = document.getElementById("closeAlertBtn");
-  // Подписываемся на нажатие
-  closeAlertBtn.addEventListener("click", hideAlertDialog);
-
-  const isOldUser = getCookie("visited");
-  // Если старый пользователь скрываем виджет
-  if (isOldUser === "true") {
-    $("#alertWidget").css("display", "none");
-  }
-  $(document).on("click", "a#dir", function (e) {
-    if ($(".dirmenu").css("display") == "none") {
-      $(".fa-bars").toggleClass("fa-xmark");
-      $(".fa-bars").css("color", "var(--shadow-color)");
-      $(".dirmenu").css("display", "grid");
-      $(".nav-links").css("background", "var(--accent-color)");
-      $("#info-button").css("display", "none");
-    } else {
-      $(".fa-bars").toggleClass("fa-xmark");
-      $(".fa-bars").css("color", "var(--primary-color)");
-      $(".dirmenu").css("display", "none");
-      $(".nav-links").css("background", "var(--shadow-color)");
-      $("#info-button").css("display", "block");
-    }
-  });
   ymaps.ready(init);
   function init() {
     // Создание экземпляра карты.
@@ -190,6 +147,48 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   }
+  // Находим элемент
+  const closeAlertBtn = document.getElementById("closeAlertBtn");
+  // Подписываемся на нажатие
+  closeAlertBtn.addEventListener("click", hideAlertDialog);
+  const isOldUser = getCookie("visited");
+  // Если старый пользователь скрываем виджет
+  if (isOldUser === "true") {
+    $("#alertWidget").css("display", "none");
+  }
+
+  const themeCookie = getCookie("theme");
+  if (themeCookie !== "") {
+    document.documentElement.setAttribute("data-theme", themeCookie);
+    if (themeCookie == "dark") {
+      $(".fa-sun").toggleClass("fa-moon");
+    }
+  }
+  //смена темы
+  const toggleThemeBtn = document.querySelector("#themechangebtn");
+  toggleThemeBtn.addEventListener("click", function () {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    $(".fa-sun").toggleClass("fa-moon");
+    setCookie("theme", newTheme, 1);
+  });
+
+  $(document).on("click", "a#dir", function (e) {
+    if ($(".dirmenu").css("display") == "none") {
+      $(".fa-bars").toggleClass("fa-xmark");
+      $(".fa-bars").css("color", "var(--shadow-color)");
+      $(".dirmenu").css("display", "grid");
+      $(".nav-links").css("background", "var(--accent-color)");
+      $("#info-button").css("display", "none");
+    } else {
+      $(".fa-bars").toggleClass("fa-xmark");
+      $(".fa-bars").css("color", "var(--primary-color)");
+      $(".dirmenu").css("display", "none");
+      $(".nav-links").css("background", "var(--shadow-color)");
+      $("#info-button").css("display", "block");
+    }
+  });
   //Реализация поиска
   $(".dirmenu ul a li").each(function () {
     //добавление к каждому элементу перечня аттрибута имени
@@ -211,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
 
 // Function to hide the alert widget
 function hideAlertDialog() {
