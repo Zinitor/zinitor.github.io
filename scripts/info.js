@@ -1,40 +1,4 @@
-//wait for page to load
 document.addEventListener("DOMContentLoaded", function () {
-  
-    //Смена темы
-  const toggleThemeBtn = document.querySelector("#themechangebtn");
-  toggleThemeBtn.addEventListener("click", function () {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    $(".fa-sun").toggleClass("fa-moon");
-    setCookie("theme", newTheme, 1);
-  });
-  const themeCookie = getCookie("theme");
-  if (themeCookie !== "") {
-    document.documentElement.setAttribute("data-theme", themeCookie);
-    if (themeCookie == "dark") {
-      $(".fa-sun").toggleClass("fa-moon");
-    }
-  }
-
-  //Открытие закрытие перечня
-  $(document).on("click", "a#dir", function (e) {
-    if ($(".dirmenu").css("display") == "none") {
-      $(".fa-bars").toggleClass("fa-xmark");
-      $(".fa-bars").css("color", "var(--shadow-color)");
-      $(".dirmenu").css("display", "grid");
-      $(".nav-links").css("background", "var(--primary-color)");
-      $("#map-button").css("display", "none");
-    } else {
-      $(".fa-bars").toggleClass("fa-xmark");
-      $(".fa-bars").css("color", "var(--primary-color)");
-      $(".dirmenu").css("display", "none");
-      $(".nav-links").css("background", "var(--shadow-color)");
-      $("#map-button").css("display", "block");
-    }
-  });
-
   // Создание нового поискового запроса
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -141,8 +105,47 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-
   goBackToMapButtonUrl(groupid, itemid);
+
+   //Смена темы
+   const toggleThemeBtn = document.querySelector("#themechangebtn");
+   toggleThemeBtn.addEventListener("click", function () {
+     const currentTheme = document.documentElement.getAttribute("data-theme");
+     const newTheme = currentTheme === "dark" ? "light" : "dark";
+     document.documentElement.setAttribute("data-theme", newTheme);
+     $(".fa-sun").toggleClass("fa-moon");
+     setCookie("theme", newTheme, 1);
+   });
+   const themeCookie = getCookie("theme");
+   if (themeCookie !== "") {
+     document.documentElement.setAttribute("data-theme", themeCookie);
+     if (themeCookie == "dark") {
+       $(".fa-sun").toggleClass("fa-moon");
+     }
+   }
+ 
+   //Открытие закрытие перечня
+   $(document).on("click", "a#dir", function (e) {
+     if ($(".dirmenu").css("display") == "none") {
+       $(".fa-bars").toggleClass("fa-xmark");
+       $(".fa-bars").css("color", "var(--shadow-color)");
+       $(".dirmenu").css("display", "grid");
+       $(".nav-links").css("background", "var(--primary-color)");
+       $("#map-button").css("display", "none");
+     } else {
+       $(".fa-bars").toggleClass("fa-xmark");
+       $(".fa-bars").css("color", "var(--primary-color)");
+       $(".dirmenu").css("display", "none");
+       $(".nav-links").css("background", "var(--shadow-color)");
+       $("#map-button").css("display", "block");
+     }
+   });
+   //Смена стиля кнопки когда достигаем конца страницы
+   $(window).scroll(function () {
+     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+       $("#map-button").css("color", "var(--accent-color)");
+     } else $("#map-button").css("color", "var(--toggle-color)");
+   });
 });
 
 function goBackToMapButtonUrl(groupid, itemid) {
@@ -152,12 +155,6 @@ function goBackToMapButtonUrl(groupid, itemid) {
     "&item=" +
     encodeURIComponent(itemid);
 }
-//Смена стиля кнопки когда достигаем конца страницы
-$(window).scroll(function () {
-  if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-    $("#map-button").css("color", "var(--accent-color)");
-  } else $("#map-button").css("color", "var(--toggle-color)");
-});
 
 function getCookie(name) {
   const cookies = document.cookie.split("; ");

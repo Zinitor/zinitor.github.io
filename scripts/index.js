@@ -43,16 +43,13 @@ document.addEventListener("DOMContentLoaded", function () {
           iconGlyph: group.iconGlyph,
           iconGlyphColor: group.iconGlyphColor,
         }),
-        // Контейнер для подменю.
-        submenu = $('<ul class="nav-links"></ul>');
-      submenu.hide();
+        // Контейнер для меню списка
       linksubmenu = $("<ul>" + "<h3>" + group.name + "</h3>" + "</ul>");
       linksubmenu.appendTo($(".dirmenu .grid-group-wrapper"));
       // Добавляем коллекцию на карту.
       myMap.geoObjects.add(collection);
       // Добавляем подменю.
       menuItem
-        .append(submenu)
         // Добавляем пункт в меню.
         .appendTo(menu)
         // По клику удаляем/добавляем коллекцию на карту и скрываем/отображаем подменю.
@@ -66,11 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
       for (var j = 0, m = group.items.length; j < m; j++) {
-        createSubMenu(group.items[j], collection, submenu, group);
+        createSubMenu(group.items[j], collection, linksubmenu, group);
       }
     }
 
-    function createSubMenu(item, collection, submenu, group) {
+    function createSubMenu(item, collection,linksubmenu, group) {
       var submenuItem = $(
           "<a href=#>" +
             '<li data-search-term="' +
@@ -103,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       collection.add(placemark);
       // Добавляем пункт в подменю.
       submenuItem
-        .appendTo(linksubmenu, submenu)
+        .appendTo(linksubmenu)
         // При клике по пункту подменю закрываем справочник и центрируемся на объекте
         .find("a");
       //При клике на объекте в перечени
@@ -122,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
         placemark.balloon.open(); //Открыть баллун
       });
     }
-    //Происходит после создания меню и вывода объектов
-    // Добавляем меню в тэг menu.
+    //Происходит после создания меню
+    //Прикрепляем фильтры к классу menu.
     menu.appendTo($(".sidebar .menu-bar .menu"));
     // Выставляем масштаб карты чтобы были видны все группы.
     myMap.setBounds(myMap.geoObjects.getBounds());
@@ -147,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   }
+
   // Находим элемент
   const closeAlertBtn = document.getElementById("closeAlertBtn");
   // Подписываемся на нажатие
