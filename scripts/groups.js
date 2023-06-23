@@ -1,7 +1,7 @@
 // Группы объектов
 var groups = [
   {
-    name: "Памятники",
+    name: "Памятники, монументы",
     groupid: "0",
     style: "islands#redGlyphIcon",
     icon: "fa-solid fa-monument", //Иконка для фильтра
@@ -31,20 +31,16 @@ var groups = [
         center: [56.326026, 43.959518],
         name: "Памятник В. И. Ленину",
       },
+
       {
         id: "mon_6",
-        center: [56.23813, 43.95539],
-        name: "Громозека",
-      },
-      {
-        id: "mon_7",
         center: [56.324251, 44.002154],
         name: "Памятник Н. А. Добролюбову",
       },
     ],
   },
   {
-    name: "Церкви, храмы, соборы",
+    name: "Религиозные объекты ",
     groupid: "1",
     style: "islands#yellowGlyphIcon",
     icon: "fa-solid fa-cross",
@@ -145,7 +141,7 @@ var groups = [
     ],
   },
   {
-    name: "Граффити",
+    name: "Прочие объекты ",
     groupid: "3",
     style: "islands#greenGlyphIcon",
     icon: "fa-solid fa-spray-can",
@@ -199,6 +195,11 @@ var groups = [
         id: "gra_10",
         center: [56.319973, 44.044416],
         name: "Граффити 'Лесоповал'",
+      },
+      {
+        id: "gra_11",
+        center: [56.23813, 43.95539],
+        name: "Громозека",
       },
     ],
   },
